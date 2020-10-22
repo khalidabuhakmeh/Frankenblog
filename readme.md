@@ -6,6 +6,21 @@ This is a mix of .NET Core and Jekyll. It's mostly setup to be Jekyll, but with 
 
 ## Getting Started
 
+## Prerequsites
+
+- [.NET 5](https://dot.net)
+- [Ruby](https://www.ruby-lang.org/en/)
+
+After cloning this repo
+
+```console
+> cd frankenblog
+> gem install jekyll bundler
+> bundle install
+> dotnet run info
+> dotnet run server
+```
+
 ### Info Command
 
 To see how your blog is doing run the `dotnet run info` command.
