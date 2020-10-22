@@ -1,5 +1,7 @@
 # Frankenblog
 
+![frankenblog post header](https://khalidabuhakmeh.com/assets/images/posts/frankenblog/frankenblog-header.jpg)
+
 This is a mix of .NET Core and Jekyll. It's mostly setup to be Jekyll, but with commands written using .NET Core and Oakton.
 
 ## Getting Started
