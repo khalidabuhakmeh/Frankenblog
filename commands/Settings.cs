@@ -97,7 +97,7 @@ namespace blog.commands
                 contents.AppendLine("---");
                 contents.AppendLine("layout: post");
                 contents.AppendLine($"title: \"{title}\"");
-                contents.AppendLine($"categories: {string.Join(" ", tags ?? new string[0])}");
+                contents.AppendLine($"categories: [{string.Join(", ", tags ?? new string[0])}]");
                 contents.AppendLine($"date:{date:yyyy-MM-dd HH:mm:ss zz00}");
                 contents.AppendLine("---");
                 
