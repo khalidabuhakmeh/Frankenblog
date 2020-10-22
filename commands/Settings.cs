@@ -94,14 +94,11 @@ namespace blog.commands
             public static async Task<Post> CreateFile(string title, DateTime date, string[] tags = null)
             {
                 var contents = new StringBuilder();
-                contents.Append("---");
+                contents.AppendLine("---");
                 contents.AppendLine("layout: post");
                 contents.AppendLine($"title: \"{title}\"");
-                contents.AppendLine($"tags: {string.Join(",", tags ?? new string[0])}");
-                contents.AppendLine("image:");
-                contents.AppendLine("image_credit_name:");
-                contents.AppendLine("image_credit_url:");
-                contents.AppendLine("image_alt");
+                contents.AppendLine($"categories: {string.Join(" ", tags ?? new string[0])}");
+                contents.AppendLine($"date:{date:yyyy-MM-dd HH:mm:ss zz00}");
                 contents.AppendLine("---");
                 
                 // slug clean up for pesky words
