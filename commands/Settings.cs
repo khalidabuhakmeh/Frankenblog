@@ -32,7 +32,11 @@ namespace blog.commands
                     { "asp.net", "aspnet" }
                 };
             
-            private static readonly string[] markdownExtensions = new [] { ".markdown", ".md" };
+            private static readonly string[] MarkdownExtensions = new []
+            {
+                ".markdown", 
+                ".md"
+            };
             
             private static Lazy<IReadOnlyList<Post>> posts =
                 new Lazy<IReadOnlyList<Post>>(() =>
@@ -40,9 +44,11 @@ namespace blog.commands
                     var directory = GetDirectory("_posts");
                     var posts = Directory
                         .GetFiles(directory)
-                        .Where(x => 
-                            markdownExtensions.Any(f => f.Equals(Path.GetExtension(x), StringComparison.OrdinalIgnoreCase)) 
-                        )
+                        .Where(x =>
+                        {
+                            var ext = Path.GetExtension(x);
+                            return MarkdownExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase);
+                        })
                         .OrderByDescending(x => x)
                         .Select(x => new Post(x))
                         .ToList()
@@ -120,16 +126,16 @@ namespace blog.commands
         {
             FullPath = fullPath;
             if (!string.IsNullOrWhiteSpace(fullPath))
-            { 
-              Filename = Path.GetFileName(FullPath);
-              Name = Path.GetFileNameWithoutExtension(Filename[11..]);
-              Date = DateTime.Parse(Filename[0..10]);
+            {
+                Filename = Path.GetFileName(FullPath);
+                Name = Path.GetFileNameWithoutExtension(Filename[11..]);
+                Date = DateTime.Parse(Filename[..10]);
             }
         }
-        
+
         public string FullPath { get; }
         public string Filename { get; }
-        public string Name { get; } 
+        public string Name { get; }
         public DateTime Date { get; }
     }
     
