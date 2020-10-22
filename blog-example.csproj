@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>blog</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Oakton" Version="2.0.4" />
+    <PackageReference Include="SimpleExec" Version="6.2.0" />
+    <PackageReference Include="Spectre.Console" Version="0.26.0" />
+  </ItemGroup>
+
+</Project>
