@@ -98,7 +98,7 @@ namespace blog.commands
                 contents.AppendLine("layout: post");
                 contents.AppendLine($"title: \"{title}\"");
                 contents.AppendLine($"categories: [{string.Join(", ", tags ?? Array.Empty<string>())}]");
-                contents.AppendLine($"date:{date:yyyy-MM-dd}");
+                contents.AppendLine($"date: {date:yyyy-MM-dd HH:mm:ss zz00}");
                 contents.AppendLine("---");
 
                 // slug clean up for pesky words
