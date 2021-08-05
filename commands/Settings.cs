@@ -11,7 +11,7 @@ namespace blog.commands
 {
     public static class Settings
     {
-        private static Lazy<string> BlogDirectory => new Lazy<string>(() => {
+        private static Lazy<string> BlogDirectory => new(() => {
             var current = typeof(Program).Assembly.Location;
             var index = current.IndexOf("/bin", StringComparison.Ordinal);
             return current.Substring(0, index);
@@ -20,7 +20,7 @@ namespace blog.commands
         public static string GetDirectory(string folder)
             => Path.Combine(CurrentDirectory, folder);
 
-        public static string CurrentDirectory => BlogDirectory.Value; 
+        public static string CurrentDirectory => BlogDirectory.Value;
 
         public static class Blog
         {
@@ -31,13 +31,13 @@ namespace blog.commands
                     { ".net", "dotnet" },
                     { "asp.net", "aspnet" }
                 };
-            
+
             private static readonly string[] MarkdownExtensions = new []
             {
-                ".markdown", 
+                ".markdown",
                 ".md"
             };
-            
+
             private static Lazy<IReadOnlyList<Post>> posts =
                 new Lazy<IReadOnlyList<Post>>(() =>
                 {
@@ -58,7 +58,7 @@ namespace blog.commands
                 });
 
             public static IReadOnlyList<Post> Posts => posts.Value;
-            public static Post Latest => 
+            public static Post Latest =>
                 Posts.FirstOrDefault() ?? new Post("");
             public static Post Nearest =>
                 Posts.Select(p => new {
@@ -97,20 +97,20 @@ namespace blog.commands
                 contents.AppendLine("---");
                 contents.AppendLine("layout: post");
                 contents.AppendLine($"title: \"{title}\"");
-                contents.AppendLine($"categories: [{string.Join(", ", tags ?? new string[0])}]");
-                contents.AppendLine($"date:{date:yyyy-MM-dd HH:mm:ss zz00}");
+                contents.AppendLine($"categories: [{string.Join(", ", tags ?? Array.Empty<string>())}]");
+                contents.AppendLine($"date:{date:yyyy-MM-dd}");
                 contents.AppendLine("---");
-                
+
                 // slug clean up for pesky words
                 var slug = title;
                 foreach (var keyword in Keywords) {
                     slug = slug.Replace(keyword.Key, keyword.Value);
                 }
                 slug = slug.ToUrlSlug();
-                
+
                 var filename = $"{date:yyyy-MM-dd}-{slug}.md";
                 var path = Path.Combine(CurrentDirectory, "_posts", filename);
-                
+
                 await File.WriteAllTextAsync(path, contents.ToString());
                 return new Post(path);
             }
@@ -135,7 +135,7 @@ namespace blog.commands
         public string Name { get; }
         public DateTime Date { get; }
     }
-    
+
     public static class UrlSlugger
     {
         // white space, em-dash, en-dash, underscore
@@ -171,19 +171,19 @@ namespace blog.commands
         /// See: http://www.siao2.com/2007/05/14/2629747.aspx
         private static string RemoveDiacritics(string stIn)
         {
-            string stFormD = stIn.Normalize(NormalizationForm.FormD);
-            StringBuilder sb = new StringBuilder();
+            var form = stIn.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder();
 
-            for (int ich = 0; ich < stFormD.Length; ich++)
+            foreach (var t in form)
             {
-                UnicodeCategory uc = CharUnicodeInfo.GetUnicodeCategory(stFormD[ich]);
+                var uc = CharUnicodeInfo.GetUnicodeCategory(t);
                 if (uc != UnicodeCategory.NonSpacingMark)
                 {
-                    sb.Append(stFormD[ich]);
+                    sb.Append(t);
                 }
             }
 
-            return (sb.ToString().Normalize(NormalizationForm.FormC));
+            return sb.ToString().Normalize(NormalizationForm.FormC);
         }
     }
 }
