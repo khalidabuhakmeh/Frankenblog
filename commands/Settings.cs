@@ -104,7 +104,7 @@ namespace blog.commands
                 // slug clean up for pesky words
                 var slug = title;
                 foreach (var keyword in Keywords) {
-                    slug = slug.Replace(keyword.Key, keyword.Value);
+                    slug = slug.Replace(keyword.Key, keyword.Value, StringComparison.OrdinalIgnoreCase);
                 }
                 slug = slug.ToUrlSlug();
 
