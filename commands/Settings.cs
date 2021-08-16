@@ -103,8 +103,8 @@ namespace blog.commands
 
                 // slug clean up for pesky words
                 var slug = title;
-                foreach (var keyword in Keywords) {
-                    slug = slug.Replace(keyword.Key, keyword.Value);
+                foreach (var (old, @new) in Keywords) {
+                    slug = slug.Replace(old, @new);
                 }
                 slug = slug.ToUrlSlug();
 
