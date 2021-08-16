@@ -28,8 +28,8 @@ namespace blog.commands
                 new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
                 {
                     { "c#", "csharp" },
-                    { ".net", "dotnet" },
-                    { "asp.net", "aspnet" }
+                    { "asp.net", "aspnet" },
+                    { ".net", "dotnet" }
                 };
 
             private static readonly string[] MarkdownExtensions = new []
@@ -104,7 +104,7 @@ namespace blog.commands
                 // slug clean up for pesky words
                 var slug = title;
                 foreach (var (old, @new) in Keywords) {
-                    slug = slug.Replace(old, @new);
+                    slug = slug.Replace(old, @new, StringComparison.OrdinalIgnoreCase);
                 }
                 slug = slug.ToUrlSlug();
 
