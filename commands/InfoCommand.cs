@@ -19,8 +19,8 @@ namespace blog.commands
             var next = Settings.Blog.Next();
             var daysLeft = Math.Max(0, (int) (latest.Date - now).TotalDays);
 
-            string recentFormat(Post post) =>
-                post == null 
+            string RecentFormat(Post post) =>
+                post == null
                     ? "[purple](n/a)[/]"
                     : $"[hotpink]‣[/] [purple]{post?.Name}[/] [fuchsia]({post?.Date:d})[/]";
 
@@ -37,26 +37,25 @@ namespace blog.commands
                 .AddRow("🚀", "[pink3]Next post date[/]", ":", $"[purple]{next:MM/dd/yyyy ddddd}[/]")
                 .AddRow("🤔", "[pink3]# of days away[/]", ":", $"[purple]{daysLeft}[/]")
                 .AddRow("🧮", "[pink3]# of posts[/]", ":", $"[purple]{Settings.Blog.Posts.Count}[/]")
-                .AddRow("🦄", "[pink3]Latest posts[/]", ":", recentFormat(recent.FirstOrDefault()));
-            
+                .AddRow("🦄", "[pink3]Latest posts[/]", ":", RecentFormat(recent.FirstOrDefault()));
+
             foreach (var post in recent.Skip(1)) {
-                grid.AddRow("", "", "", recentFormat(post));
+                grid.AddRow("", "", "", RecentFormat(post));
             }
 
             var output = new Panel(grid)
-                .SetHeader(
-                    "  Blog Information  ", 
-                    Style
-                        .WithBackground(Color.MediumPurple4)
-                        .WithForeground(Color.NavajoWhite1)
-                        .WithDecoration(Decoration.Italic)
-                    ,
+                .Header(
+                    "  Blog Information  ",
                     Justify.Center
                 )
-                .SetBorderColor(Color.Pink3)
-                .SetPadding(1, 1, 1, 1)
+                .BorderStyle(new Style(
+                    foreground: Color.NavajoWhite1,
+                    decoration:Decoration.Italic )
+                )
+                .BorderColor(Color.Pink3)
+                .Padding(1, 1, 1, 1)
                 .RoundedBorder();
-                
+
             AnsiConsole.WriteLine();
             AnsiConsole.Render(output);
 
