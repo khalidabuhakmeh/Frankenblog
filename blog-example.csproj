@@ -2,14 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>blog</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Oakton" Version="3.2.1" />
-    <PackageReference Include="SimpleExec" Version="8.0.0" />
-    <PackageReference Include="Spectre.Console" Version="0.41.1-preview.0.5" />
+    <PackageReference Include="Oakton" Version="4.6.1" />
+    <PackageReference Include="SimpleExec" Version="10.0.0" />
+    <PackageReference Include="Spectre.Console" Version="0.44.0" />
   </ItemGroup>
-
 </Project>
