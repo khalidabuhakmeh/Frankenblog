@@ -13,7 +13,7 @@ namespace blog.commands
     {
         private static Lazy<string> BlogDirectory => new(() => {
             var current = typeof(Program).Assembly.Location;
-            var index = current.IndexOf("/bin", StringComparison.Ordinal);
+            var index = current.IndexOf(Path.DirectorySeparatorChar + "bin", StringComparison.Ordinal);
             return current.Substring(0, index);
         });
 
