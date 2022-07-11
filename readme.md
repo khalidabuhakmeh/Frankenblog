@@ -17,6 +17,7 @@ After cloning this repo
 > cd frankenblog
 > gem install jekyll bundler
 > bundle install
+> bundle update
 > dotnet run info
 > dotnet run server
 ```
